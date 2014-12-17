@@ -13,16 +13,20 @@ app.get('/hello', function(req, res) {
 });
 
 //post page
-app.get('/post/:id', function (req, res)  {
-	var id = req.params.id
-	var post = new Post();
-	
-	post.findById(id, function (err, post) {
-		res.render('post', {
-			query.equalTo("post", post);
-		})
-	})	
-});
+app.get('/post/:id', function (req, res) {
+	var id = req.params.id;
+	var query = new AV.Query("Post");
+	query.equalTo("id");
+	query.find({
+	    success: function(results) {
+	        res.render('post', {
+	            "post", post
+	        };
+	    },
+	    error: function(error) {
+	        alert("Error: " + error.code + " " + error.message);
+	    };
+	});
 
 
 
