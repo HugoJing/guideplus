@@ -19,8 +19,7 @@ app.get('/post/:id', function (req, res) {
 	query.equalTo("id");
 	query.find({
 	    success: function(results) {
-	        res.render('post', {
-	            "post", post
+	        res.render("post", {title, body}
 	        };
 	    },
 	    error: function(error) {
