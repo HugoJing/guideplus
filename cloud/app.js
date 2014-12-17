@@ -21,8 +21,25 @@ app.get('/hello', function(req, res) {
 });
 
 // 创建一个AV.Object子类Visitor.
-var Post = AV.Object.extend('Post');
-var post = new Post();
+var PostCollection = AV.Collection.extend({
+  model: PostObject
+});
+var collection = new PostCollection();
+collection.fetch({
+  success: function(collection) {
+    collection.each(function(object) {
+      console.warn(object);
+    });
+  },
+  error: function(collection, error) {
+    // The collection could not be retrieved.
+  }
+});
+// The Collection of TestObjects that match a complex query.
+var query = new AV.Query(TestObject);
+query.equalTo("temperature", "hot");
+query.greaterThan("degreesF", 100);
+var collection = query.collection();
 
 app.get('/post/:id', function(req, res) {
     var id = req.params._id
