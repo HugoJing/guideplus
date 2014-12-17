@@ -14,35 +14,10 @@ app.get('/hello', function(req, res) {
 
 //post page
 app.get('/post/:id', function (req, res, next) {
-  var url = "https://leancloud.cn/1/classes/Post/" + req.params.id;
-  request.get(url, function (err, resp, data) {
-    if (err || resp.statusCode != 200) return next(err);
-
-    var json = JSON.parse(data);
-    var ids = [];
-    json.news.forEach(function (item) {
-      item.url = '/post/' + item.news_id;
-      item.date = item.display_date;
-      item.thumbnail = '/thumbnail/' + getKey(item.thumbnail);
-      ids.push('news-' + item.news_id);
-    });
-    db.allDocs({keys: ids, include_docs: true}).then(function (data) {
-      data.rows.forEach(function (item, i) {
-        json.news[i].image = item.doc.image;
-      });
-      var title = "专题";
-      crawler.sections().data.forEach(function (item) {
-        if (item.id == req.params.id) {
-          title = item.name;
-          return;
-        }
-      });
-      res.render('section', {title: title, news: json.news, timestamp: json.timestamp});
-    }).catch(function (err) {
-      res.status(404).render('error');
-    });
-  });
-});
+  db.get('news-' + req.params.id).then(function (json) {
+    if (json.body.indexOf('禁止转载') > -1 || json.body.indexOf('谢绝转载') > -1) {
+      res.render('redirect', {title: json.title, story: json});
+    }
 
 
 
