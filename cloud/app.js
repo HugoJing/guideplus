@@ -25,7 +25,7 @@ var Post = AV.Object.extend('Post');
 var post = new Post();
 
 app.get('/post/:id', function(req, res) {
-    var id = req.params.id
+    var id = req.params._id
 	res.render('post', { title: title });
 });
 
