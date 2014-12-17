@@ -19,7 +19,7 @@ app.get('/post/:id', function (req, res, next) {
   var url = "https://leancloud.cn/1/classes/Post/" + req.params.id;
   request.get(url, function (err, resp, data) {
     res.render('post', {title: title});
-  }
+  };
 });
 
 
