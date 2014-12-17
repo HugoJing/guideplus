@@ -13,14 +13,13 @@ app.get('/hello', function(req, res) {
 });
 
 //post page
-app.get('/post/:id', function (req, res) {
-	var id = req.params.id;
+app.get('/post/objectId', function (req, res) {
+	var id = req.params.objectId;
 	var query = new AV.Query("Post");
 	query.equalTo("id");
 	query.find({
 	    success: function(results) {
-	        res.render("post", {title, body}
-	        };
+	        res.render("post", {title, body})
 	    },
 	    error: function(error) {
 	        alert("Error: " + error.code + " " + error.message);
