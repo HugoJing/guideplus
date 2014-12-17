@@ -22,7 +22,7 @@ app.get('/post/:id', function (req, res)  {
 			query.equalTo("post", post);
 		})
 	})	
-})
+});
 
 
 
