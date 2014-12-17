@@ -12,5 +12,19 @@ app.get('/hello', function(req, res) {
   res.render('hello', { message: 'Congrats, you just set up your app!' });
 });
 
+//post page
+app.get('/post/:id', function (req, res)  {
+	var id = req.params.id
+	var post = new Post();
+	
+	post.findById(id, function (err, post) {
+		res.render('post', {
+			query.equalTo("post", post);
+		})
+	})	
+})
+
+
+
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
 app.listen();
