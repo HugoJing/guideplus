@@ -20,7 +20,7 @@ app.get('/post/:id', function (req, res) {
   var id = req.params.id;
   var query = new AV.Query("Post");
   query.find().then(function (posts) {
-    res.render('post', {post, post});
+    res.render('post', {title, title});
   });
 });
 
