@@ -13,12 +13,13 @@ app.get('/hello', function(req, res) {
 });
 
 //post page
-app.get('/post/:id', function (req, res, next) {
-  db.get('news-' + req.params.id).then(function (json) {
-    if (json.body.indexOf('禁止转载') > -1 || json.body.indexOf('谢绝转载') > -1) {
-      res.render('redirect', {title: json.title, story: json});
-    }
-
+app.get('/post/:id', function (req, res) {
+  var id = req.params.id;
+  post.findPostById(id).then(function (_sa) {
+    
+    res.render('post', {title: sa, body: body});
+  });
+});
 
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
