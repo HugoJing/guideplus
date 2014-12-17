@@ -15,13 +15,11 @@ app.get('/hello', function(req, res) {
   res.render('hello', { message: 'Congrats, you just set up your app!' });
 });
 
-//post page
-app.get('/post/:id', function (req, res) {
-  var id = req.params.id;
-  var query = new AV.Query("Post");
-  query.find().then(function (posts) {
-    res.render('post', {title, title});
-  });
+app.get('/post/:id', function (req, res, next) {
+  var url = "https://leancloud.cn/1/classes/Post/" + req.params.id;
+  request.get(url, function (err, resp, data) {
+    res.render('post', {title: title});
+  }
 });
 
 
