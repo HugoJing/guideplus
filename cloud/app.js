@@ -18,9 +18,8 @@ app.get('/hello', function(req, res) {
 //post page
 app.get('/post/:id', function (req, res) {
   var id = req.params.id;
-  var post = new AV.Object("Post");
-  post.findPostById(id).then(function (posts) {
-    
+  var query = new AV.Query("Post");
+  query.find().then(function (posts) {
     res.render('post', {title: title, body: body});
   });
 });
