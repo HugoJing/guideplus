@@ -1,24 +1,38 @@
+/**
+ * Created by Hugo on 14-12-19.
+ */
+
 var Story = AV.Object.extend('Story');
 
-function findStoryById() {
-  var p=new AV.Promise();
+function findStory(queryFn) {
   var q = new AV.Query(Story);
-  q.equalTo('name', 'Ticket');
-  q.first().then(function (c) {
-    if(c){
-      p.resolve(c);
-    }else{
-      var cc=new Counter();
-      cc.set('name','Ticket');
-      cc.set('n',0);
-      cc.save(function(cc){
-        q.resolve(cc);
-      },mutil.rejectFn(p));
-    }
-  },mutil.rejectFn(p));
-  return p;
+  queryFn.call(this, q);
+  return q.first();
 }
 
-exports.findTicketN = findTicketN;
-exports.incTicketN = incTicketN;
-exports.incTicketNReturnOrigin=incTicketNReturnOrigin;
+function findRawStoryById(id) {
+  return findStory(function (q) {
+    q.equalTo('objectId', id);
+  });
+}
+
+function transfromStory(curStory) {
+  return {
+    title:curStory.get('title'),
+    id:curStory.id,
+    content:curStory.get('content')
+  };
+}
+
+function findStoryById(id) {
+  return findRawStoryById(id).then(function (c) {
+    if (c) {
+      c = transfromStory(c);
+    }
+    return AV.Promise.as(c);
+  });
+}
+
+exports.findStoryById = findStoryById;
+exports.findRawStoryById=findRawStoryById;
+exports.transfromStory=transfromStory;
