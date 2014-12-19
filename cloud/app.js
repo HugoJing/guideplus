@@ -16,7 +16,7 @@ app.use(express.bodyParser());    // 读取请求 body 的中间件
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
 app.get('/story/:id', function (req, res) {
     var id = req.params.id;
-    mstory.findPostById(id).then(function (story) {
+    mstory.findStoryById(id).then(function (story) {
       if (story) {
         res.render('story', {story: story});
       } else {
