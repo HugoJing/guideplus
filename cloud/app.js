@@ -4,7 +4,6 @@
 // 在 Cloud code 里初始化 Express 框架
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
 
 var mstory = require('cloud/mstory.js');
 
