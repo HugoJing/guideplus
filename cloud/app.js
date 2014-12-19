@@ -14,12 +14,38 @@ app.get('/hello', function(req, res) {
 	res.render('hello', { message: 'Congrats, you just set up your app!' });
 });
 
-app.get('/', function (req, res) {
-  var q = req.query.q;
-  var md5Value = utility.md5(q);
-  res.send(md5Value);
-});
+var Post = AV.Object.extend('Post');
 
+function findPost(queryFn) {
+  var q = new AV.Query(Post);
+  queryFn.call(this, q);
+  return q.first();
+}
+
+function findRawPostById(id) {
+  return findPost(function (q) {
+    q.equalTo('objectId', id);
+  });
+}
+
+function transfromPost(curPost) {
+  return {
+    title:curPost.get('title'),
+    id:curPost.id,
+    content:curPost.get('content')
+  };
+}
+
+app.get('/post/:id', function (req, res) {
+    var id = req.params.id;
+    muser.findPostById(id).then(function (post) {
+      if (post) {
+        res.render('post', {post: post});
+      } else {
+        renderInfo(res, '该帖子已删除 或者 链接是错误的');
+      }
+    }, mutil.renderErrorFn(res));
+});
 
 
 // This line is required to make Express respond to http requests.
