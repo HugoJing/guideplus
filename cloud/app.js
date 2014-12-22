@@ -59,7 +59,7 @@ app.post('/admin/storys/new', function(req, res) {
         var story = new AV.Object(Story);
         story.set('title', title);
         story.set('content', content);
-        story.set('image', image);
+        //story.set('image', image);
         story.save().then(function (story) {
             alert('New object created with objectId: ' + story.id);
             res.redirect("/story/" + story.id);
