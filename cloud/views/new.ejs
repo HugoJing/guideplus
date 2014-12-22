@@ -1,0 +1,70 @@
+
+<form id="storyForm" enctype="multipart/form-data" action="/admin/storys" method="post">
+
+  <div class="form-group">
+    <label class="control-label" for="inputTitle">
+      标题
+      <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+    </label>
+
+    <div class="controls">
+      <input type="text" name="story.title" id="inputTitle" class="form-control" placeholder="标题" required>
+    </div>
+  </div>
+  
+
+  <div class="form-group">
+    <label class="control-label" for="inputEmail">
+      电子邮箱
+      <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+    </label>
+
+    <div class="controls">
+      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="电子邮箱地址" required>
+    </div>
+  </div>
+  
+
+  <div class="form-group">
+    <label class="control-label" for="inputType">
+      类型
+      <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+    </label>
+
+    <div class="controls">
+    <select id="inputType" class="form-control" name="type" required>
+      <option value="ios" selected="selected">互联网创业</option>
+      <option value="android">好书推荐</option>
+    </select>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label class="control-label" for="inputContent">
+      正文
+      <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+    </label>
+
+    <div class="controls">
+      <textarea rows="10" cols="20" name="content" id="inputContent" class="form-control" placeholder="正文" required></textarea>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label class="control-label" for="inputAttachment">截图附件</label>
+
+    <div class="controls">
+      <input type='file' name='attachment' id='inputAttachment' accept="image/*"/>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">提交</button>
+    <a href="/storys" class="btn btn-default">回到帖子列表</a>
+  </div>
+
+</form>
+
