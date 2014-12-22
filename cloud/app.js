@@ -18,7 +18,11 @@ var renderErrorFn = mutil.renderErrorFn;
 var renderForbidden = mlog.renderForbidden;
 var renderInfo = mutil.renderInfo;
 
+
+var Story = AV.Object.extend('Story');
+
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
+// 内容页
 app.get('/story/:id', function (req, res) {
     var id = req.params.id;
     mstory.findStoryById(id).then(function (story) {
@@ -30,55 +34,40 @@ app.get('/story/:id', function (req, res) {
     }, renderErrorFn(res));
 });
 
+// 列表页
 app.get('/admin/storys', function (req, res) {
     var query = new AV.Query('Story');
     query.descending('createdAt');
     query.limit(10);
     query.find().then(function (storys) {
       storys = storys || [];
-      storys = _.map(storys, transformStory);
+      storys = _.map(storys, storys);
       res.render('list', {storys: storys});
     }, mutil.renderErrorFn(res));
   });
 
-function createStory(title, type, content, image, thumbnail, shareUrl, readLink) {
-    mticket.incTicketNReturnOrigin().then(function (n) {
-        var story = new AV.Object('Story');
-        story.set('title', client.id);
-        story.set('type', client.email);
-        story.set('content', type);
-        story.set('image', token);
-        story.set('thumbnail', todo_status);
-        story.set('shareUrl', title);
-        story.set('readLink', content);
+// 录入页
+app.get('/admin/storys/new', function(req, res) {
+    res.render('new');
+});
+// 点击提交将触发下列函数
+app.post('/admin/storys/new', function(req, res) {
+    var title = req.body.title;
+    var content = req.body.content;
+    var image = req.body.image;
+    if (title && content && image) {
+        var story = new AV.Object(Story);
+        story.set('title', title);
+        story.set('content', content);
+        story.set('image', image);
         story.save().then(function (story) {
-            // var text = '<p>Client:    ' + client.username + '</p><p> Type:    ' + type + '</p><p> Title:    <pre>' + title + '</pre></p><p>Content:    <pre>' + content + '</pre></p>';
-            // text += generateAdminReplyLink(ticket);
-            // sendEmail(ticket, 'New ticket', text);
-            // var info = '新的工单！';
-            // notifyTicketToChat(ticket, content, info);
-            // then(ticket);
+            alert('New object created with objectId: ' + story.id);
+            res.redirect("/story/" + story.id);
         }, renderErrorFn(res));
-    });
-}
-
-app.get('/admin/storys/new', function (req, res) {
-    res.render('new', {});
+    } else {
+        mutil.renderError(res, '不能为空');
+    }
 });
-
-app.post('/admin/storys', function (req, res) {
-    var token = req.token;
-    var cid = req.cid;
-    var client = req.client;
-    mlog.log('req title' + req.body.title);
-    saveFileThen(req, function (attachment) {
-        createTicket(res, token, client, attachment, req.body.title, req.body.type, req.body.content, req.body.secret, function (ticket) {
-            res.redirect('/admin/storys');
-        });
-    });
-});
-
-
 
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
