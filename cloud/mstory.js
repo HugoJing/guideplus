@@ -4,11 +4,8 @@
 
 var Story = AV.Object.extend('Story');
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 3cc88c1d07df9f1b49c22737df288ec8dd1e81d2
 function findStory(queryFn) {
   var q = new AV.Query(Story);
   queryFn.call(this, q);
