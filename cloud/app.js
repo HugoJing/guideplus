@@ -60,10 +60,14 @@ app.post('/admin/storys/new', function(req, res) {
         story.set('title', title);
         story.set('content', content);
         //story.set('image', image);
-        story.save().then(function (story) {
-            alert('New object created with objectId: ' + story.id);
-            res.redirect("/story/" + story.id);
-        }, renderErrorFn(res));
+        story.save(null, {
+            success: function(story) {
+                alert('New object created with objectId: ' + story.id);
+            },
+            error: function(story, error) {
+                alert('Failed to create new object, with error code: ' + error.description);
+            }
+        });
     } else {
         mutil.renderError(res, '不能为空');
     }
