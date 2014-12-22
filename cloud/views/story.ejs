@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title><%= story.title %></title>
-	<!-- Class：$class -->
-
+	<title><%= story.title %> | <%= story.type %> | Guide+ </title>
+	<!-- Type：<%= story.type %> -->
+ 
 	<!-- Adaptive Device Screen Size -->
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="/post/css/guideplus_post_v1.0.css" type="text/css" />
@@ -25,12 +25,13 @@
 	<div id="page">
 		<h1><%= story.title %></h1>
 		
-			<p style="text-align: center;"><img alt="" src="< firstPictureUrl >" style="width: 440px" /></p><br />
+			<p style="text-align: center;"><img alt="" src=<%= story.image %> style="width: 440px" /></p><br />
 
 			<!-- 每个段落(文本/图片)包裹在 <p></p><br /> 中 -->
 			<%- story.content %>
-		
-	<div class="read-link"><a href="< originalUrl >">查看原文 >></a></div>
+	
+	<br /><br />
+	<div class="read-link"><a href= <%= story.readLink %>>查看原文 >></a></div>
 
 	</div>
 
@@ -49,11 +50,11 @@
 	</div>
 </a>
 
-<div id="bottom">
+<!-- <div id="bottom">
 	<div class="bottom-logo"><img src="http://zine-static.qiniudn.com/article/ui-image/logo.png" alt="logo" /></div>
 	<div class="bottom-title"><p class="bottom-text"> Guide+ 只有 1% 的聪明人在使用它</p></div>
 	<div class="bottom-about"><a href="http://guideplus.me/" class="about-link">了解更多</a></div>
-</div>
+</div> -->
 
 </body>
 
