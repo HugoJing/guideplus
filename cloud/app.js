@@ -62,7 +62,7 @@ app.post('/admin/storys/new', function(req, res) {
         //story.set('image', image);
         story.save().then(function (story) {
             alert('New object created with objectId: ' + story.objectId);
-            res.redirect("/story/" + story.objectId);
+            //res.redirect("/story/" + story.objectId);
         }, renderErrorFn(res));
     } else {
         mutil.renderError(res, '不能为空');
