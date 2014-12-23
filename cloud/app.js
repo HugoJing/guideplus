@@ -59,10 +59,10 @@ app.post('/admin/storys/new', function(req, res) {
     var story = new AV.Object(Story);
 
     story.save({
-        title: title,
-        content: content
+        title: req.body.title,
+        content: req.body.content
     }, {
-    success: function(storystorye) {
+    success: function(story) {
         // The object was saved successfully.
     },
     error: function(story, error) {
