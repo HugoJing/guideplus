@@ -56,6 +56,7 @@ app.post('/admin/storys/new', function(req, res) {
     var content = req.body.content;
     //var image = req.body.image;
     if (title && content) {
+        var Story = AV.Object.extend('Story');
         var story = new AV.Object(Story);
         story.set('title', title);
         story.set('content', content);
