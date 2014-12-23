@@ -55,24 +55,39 @@ app.post('/admin/storys/new', function(req, res) {
     var title = req.body.title;
     var content = req.body.content;
     //var image = req.body.image;
-    if (title && content) {
-        var Story = AV.Object.extend('Story');
-        var story = new AV.Object(Story);
-        story.set('title', title);
-        story.set('content', content);
-        //story.set('image', image);
-        storye.save(null, {
-            success: function(story) {
-            // Execute any logic that should take place after the object is saved.
-            alert('New object created with objectId: ' + story.id);
-            },
-            error: function(story, error) {
-            // Execute any logic that should take place if the save fails.
-            // error is a AV.Error with an error code and description.
-            alert('Failed to create new object, with error code: ' + error.description);
-            }
-        })
-    });
+    var Story = AV.Object.extend('Story');
+    var story = new AV.Object(Story);
+
+    story.save({
+        title: title,
+        content: content
+    }, {
+    success: function(storystorye) {
+        // The object was saved successfully.
+    },
+    error: function(story, error) {
+        // The save failed.
+        // error is a AV.Error with an error code and description.
+    }
+});
+    // if (title && content) {
+    //     var Story = AV.Object.extend('Story');
+    //     var story = new AV.Object(Story);
+    //     story.set('title', title);
+    //     story.set('content', content);
+    //     //story.set('image', image);
+    //     storye.save().then(function)
+    //         success: function(story) {
+    //         // Execute any logic that should take place after the object is saved.
+    //         alert('New object created with objectId: ' + story.id);
+    //         },
+    //         error: function(story, error) {
+    //         // Execute any logic that should take place if the save fails.
+    //         // error is a AV.Error with an error code and description.
+    //         alert('Failed to create new object, with error code: ' + error.description);
+    //         }
+    //     })
+    // });
 
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
