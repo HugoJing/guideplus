@@ -60,8 +60,8 @@ app.post('/admin/storys/new', function(req, res) {
         story.set('title', title);
         story.set('content', content);
         //story.set('image', image);
-        story.save().then(function (story) {
-            alert('New object created with objectId: ' + story.objectId);
+        story.save().then(function () {
+            //alert('New object created with objectId: ' + story.objectId);
             //res.redirect("/story/" + story.objectId);
         }, renderErrorFn(res));
     } else {
