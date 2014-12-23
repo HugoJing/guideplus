@@ -71,7 +71,7 @@ app.post('/admin/storys/new', function(req, res) {
             // error is a AV.Error with an error code and description.
             alert('Failed to create new object, with error code: ' + error.description);
             }
-        });
+        })
     });
 
 
