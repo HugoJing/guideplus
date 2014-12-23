@@ -61,14 +61,18 @@ app.post('/admin/storys/new', function(req, res) {
         story.set('title', title);
         story.set('content', content);
         //story.set('image', image);
-        story.save().then(function () {
-            //alert('New object created with objectId: ' + story.objectId);
-            //res.redirect("/story/" + story.objectId);
-        }, renderErrorFn(res));
-    } else {
-        mutil.renderError(res, '不能为空');
-    }
-});
+        storye.save(null, {
+            success: function(story) {
+            // Execute any logic that should take place after the object is saved.
+            alert('New object created with objectId: ' + story.id);
+            },
+            error: function(story, error) {
+            // Execute any logic that should take place if the save fails.
+            // error is a AV.Error with an error code and description.
+            alert('Failed to create new object, with error code: ' + error.description);
+            }
+        });
+    });
 
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
