@@ -35,6 +35,18 @@ function findStoryById(id) {
   });
 }
 
+function addCurStory(map) {
+    var story=AV.Object(story).add();
+    if (map.title) {
+      story.set('title', map.title);
+    }
+    if (map.content) {
+      story.set('content', map.content);
+    }
+    return story.save();
+}
+
 exports.findStoryById = findStoryById;
 exports.findRawStoryById=findRawStoryById;
 exports.transfromStory=transfromStory;
+exports.addCurStory=addCurStory;
