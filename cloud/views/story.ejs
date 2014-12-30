@@ -6,30 +6,30 @@
 
 	<title><%= story.title %> | <%= story.type %> | Guide+ </title>
 	<!-- Type：<%= story.type %> -->
- 
+
 	<!-- Adaptive Device Screen Size -->
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="/post/css/guideplus_post_v1.0.css" type="text/css" />
-	
+
 </head>
 
 <body>
 <div id="site">
-	
+
     <div id="read_head">
-           
-        <img src="/post/logos/< logoUrl >" alt="< logoText >" class="read-logo" />
-                        
+
+        <!-- <img src="/post/logos/< logoUrl >" alt="< logoText >" class="read-logo" /> -->
+        <%= story.media %>
     </div>
-	
+
 	<div id="page">
 		<h1><%= story.title %></h1>
-		
+
 			<p style="text-align: center;"><img alt="" src=<%= story.image %> style="width: 440px" /></p><br />
 
 			<!-- 每个段落(文本/图片)包裹在 <p></p><br /> 中 -->
 			<%- story.content %>
-	
+
 	<br /><br />
 	<div class="read-link"><a href= <%= story.readLink %>>查看原文 >></a></div>
 
