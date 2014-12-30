@@ -1,6 +1,18 @@
 
 <form id="storyForm" enctype="multipart/form-data" action="/admin/storys/new" method="post">
 
+  <div class="callout callout-info callout-has-icon" role="alert">
+  <i class="avc-icon avc-info"></i>
+  <h4>小贴士</h4>
+  <ul>
+    <li>提交的帖子必须是：已人工审核、保证质量；作者和媒体允许转载（无禁止转载/谢绝转载的声明）；符合现有栏目分类</li>
+    <li>“图片”是指帖子的第一张图/首图/焦点图，用在查看帖子内容之前的展示，请保证清晰度</li>
+    <li>其他帖子内容中的插图，请和内容以 HTML 形式一起写入正文</li>
+    <li>从何处得到 HTML 正文？打开浏览器，在原文页面，右键，查看网页源代码，从中找到 正文部分 复制</li>
+    <li>有疑问请联系我</li>
+  </ul>
+</div>
+
   <div class="form-group">
     <label class="control-label" for="inputTitle">
       标题
@@ -8,7 +20,7 @@
     </label>
 
     <div class="controls">
-      <input type="text" name="title" id="inputTitle" class="form-control" placeholder="标题" required>
+      <input type="text" name="title" id="inputTitle" class="form-control" placeholder="请在此处粘贴标题" required>
     </div>
   </div>
 
@@ -21,30 +33,50 @@
 
     <div class="controls">
     <select id="inputType" class="form-control" name="type" required>
-      <option value="ios" selected="selected">互联网创业</option>
-      <option value="android">好书推荐</option>
+      <option value="internetStartup" selected="selected">互联网创业</option>
+      <option value="goodBook">好书推荐</option>
     </select>
     </div>
   </div>
 
+  <div class="form-group">
+    <label class="control-label" for="inputImage">图片</label>
+
+    <div class="controls">
+      <input type='file' name='image' id='inputImage' accept="image/*"/>
+    </div>
+  </div>
 
   <div class="form-group">
-    <label class="control-label" for="inputContent">
-      正文
+    <label class="control-label" for="inputReadLink">
+      原文地址
       <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
     </label>
 
     <div class="controls">
-      <textarea rows="10" cols="20" name="content" id="inputContent" class="form-control" placeholder="正文" required></textarea>
+      <input type="text" name="readLink" id="inputReadLink" class="form-control" placeholder="粘贴原文地址，例如 http://segmentfault.com/blog/lenbo_ma/1190000000495693" required>
     </div>
   </div>
 
-
   <div class="form-group">
-    <label class="control-label" for="inputAttachment">截图附件</label>
+    <label class="control-label" for="inputReadLink">
+      原载媒体
+      <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+    </label>
 
     <div class="controls">
-      <input type='file' name='attachment' id='inputAttachment' accept="image/*"/>
+      <input type="text" name="media" id="inputMedia" class="form-control" placeholder="粘贴原载媒体的名称，例如：36氪" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label" for="inputContent">
+    正文
+      <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+  </label>
+
+    <div class="controls">
+      <textarea rows="10" cols="20" name="content" id="inputContent" class="form-control" placeholder="请在此处粘贴 正文（HTML版），例如 ：<p>Kuty Shalev 创办的 最低可行产品（Minimum Viable Product，MVP）才符合现在的生态，就是鼓励先推出原型，再视市场反应调整产品。通讯 App Yo 只花 8 小时就上市，至今有 100 多万活跃用户。</p><br /><p>这几年，说到模仿性质强又带点讽刺意味的 App，Yo 绝对无人能出其右，设计干净，使用简单，极简就是它的特色。以色列开发者 Or Arbel 花了 8 小时，让用户只能传一个 Yo 字给朋友。</p><br  />" required></textarea>
     </div>
   </div>
 
