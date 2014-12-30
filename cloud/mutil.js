@@ -44,6 +44,10 @@ function renderInfo(res, info, backLink) {
   res.render('info', {info: info, backLink: backLink});
 }
 
+
+
+
+
 exports.doErr=doErr;
 exports.renderErrorFn=renderErrorFn;
 exports.renderError=renderError;

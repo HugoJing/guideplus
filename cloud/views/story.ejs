@@ -18,14 +18,15 @@
 
     <div id="read_head">
 
+        <h1><%=story.from %></h1>
         <!-- <img src="/post/logos/< logoUrl >" alt="< logoText >" class="read-logo" /> -->
-        <%= story.media %>
+
     </div>
 
 	<div id="page">
 		<h1><%= story.title %></h1>
 
-			<p style="text-align: center;"><img alt="" src=<%= story.image %> style="width: 440px" /></p><br />
+			<p style="text-align: center;"><img alt="" src="<%= story.image %>" style="width: 440px" /></p><br />
 
 			<!-- 每个段落(文本/图片)包裹在 <p></p><br /> 中 -->
 			<%- story.content %>
@@ -37,18 +38,18 @@
 
 </div>
 
-<a id="message_a" href="http://guideplus.me/">
-	<div id="message">
-		<div class="message-inner">
-			<div class="message-logo"></div>
-			<div class="message-text">
-				<p class="message-text-title"> Guide+ </p>
-				<p class="message-text-inner">只有 1% 的聪明人在使用它</p>
-			</div>
-			<div class="message-button">立即下载</div>
-		</div>
-	</div>
-</a>
+<!-- // <a id="message_a" href="http://guideplus.me/">
+// 	<div id="message">
+// 		<div class="message-inner">
+// 			<div class="message-logo"></div>
+// 			<div class="message-text">
+// 				<p class="message-text-title"> Guide+ </p>
+// 				<p class="message-text-inner">只有 1% 的聪明人在使用它</p>
+// 			</div>
+// 			<div class="message-button">立即下载</div>
+// 		</div>
+// 	</div>
+// </a> -->
 
 <!-- <div id="bottom">
 	<div class="bottom-logo"><img src="http://zine-static.qiniudn.com/article/ui-image/logo.png" alt="logo" /></div>

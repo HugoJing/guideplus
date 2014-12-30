@@ -6,8 +6,9 @@
   <h4>小贴士</h4>
   <ul>
     <li>提交的帖子必须是：已人工审核、保证质量；作者和媒体允许转载（无禁止转载/谢绝转载的声明）；符合现有栏目分类</li>
-    <li>“图片”是指帖子的第一张图/首图/焦点图，用在查看帖子内容之前的展示，请保证清晰度</li>
+    <li>“首图”是指帖子的第一张图/焦点图，用在查看帖子内容之前的展示，请保证清晰度</li>
     <li>其他帖子内容中的插图，请和内容以 HTML 形式一起写入正文</li>
+    <li>所有图片应该上传到 media.guideplus.me 下，用得到的新图片地址替代原文中的图片地址</li>
     <li>从何处得到 HTML 正文？打开浏览器，在原文页面，右键，查看网页源代码，从中找到 正文部分 复制</li>
     <li>有疑问请联系我</li>
   </ul>
@@ -39,13 +40,16 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <label class="control-label" for="inputImage">图片</label>
+    <div class="form-group">
+      <label class="control-label" for="inputImage">
+        首图地址
+        <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+      </label>
 
-    <div class="controls">
-      <input type='file' name='image' id='inputImage' accept="image/*"/>
+      <div class="controls">
+        <input type="text" name="image" id="inputImage" class="form-control" placeholder="粘贴首图地址，例如 http://media.guideplus.me/2014/12/30/119495693" required>
+      </div>
     </div>
-  </div>
 
   <div class="form-group">
     <label class="control-label" for="inputReadLink">
@@ -59,13 +63,13 @@
   </div>
 
   <div class="form-group">
-    <label class="control-label" for="inputReadLink">
-      原载媒体
+    <label class="control-label" for="inputFrom">
+      原始出处
       <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
     </label>
 
     <div class="controls">
-      <input type="text" name="media" id="inputMedia" class="form-control" placeholder="粘贴原载媒体的名称，例如：36氪" required>
+      <input type="text" name="from" id="inputFrom" class="form-control" placeholder="粘贴原载出处的名称，例如：36氪" required>
     </div>
   </div>
 
