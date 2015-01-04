@@ -34,8 +34,8 @@
 
     <div class="controls">
     <select id="inputType" class="form-control" name="type" required>
-      <option value="internetStartup" selected="selected">互联网创业</option>
-      <option value="goodBook">好书推荐</option>
+      <option value="互联网创业" selected="selected">互联网创业</option>
+      <option value="好书推荐">好书推荐</option>
     </select>
     </div>
   </div>
@@ -44,10 +44,11 @@
       <label class="control-label" for="inputImage">
         首图地址
         <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+        (格式：图片存储域名 + 当前日期前缀 + 图片名 ，示例如下)
       </label>
 
       <div class="controls">
-        <input type="text" name="image" id="inputImage" class="form-control" placeholder="粘贴首图地址，例如 http://media.guideplus.me/2014/12/30/119495693" required>
+        <input type="text" name="image" id="inputImage" class="form-control" value="http://media.guideplus.me/2015/01/01/119495693.png" required>
       </div>
     </div>
 
@@ -80,7 +81,12 @@
   </label>
 
     <div class="controls">
-      <textarea rows="10" cols="20" name="content" id="inputContent" class="form-control" placeholder="请在此处粘贴 正文（HTML版），例如 ：<p>Kuty Shalev 创办的 最低可行产品（Minimum Viable Product，MVP）才符合现在的生态，就是鼓励先推出原型，再视市场反应调整产品。通讯 App Yo 只花 8 小时就上市，至今有 100 多万活跃用户。</p><br /><p>这几年，说到模仿性质强又带点讽刺意味的 App，Yo 绝对无人能出其右，设计干净，使用简单，极简就是它的特色。以色列开发者 Or Arbel 花了 8 小时，让用户只能传一个 Yo 字给朋友。</p><br  />" required></textarea>
+      <textarea rows="10" cols="20" name="content" id="inputContent" class="form-control" placeholder='<p>大学毕业后的一年，我在多伦多市郊的一家小公司工作，做一名视听技术顾问。这个公司承接了一些非常酷的项目，包括设计电影院外形和给大型建筑消音。</p>
+<p>过去的这个夏天，每个周四中午吃饭前的一小时，我都要坐在办公桌前，完成这周的报告，但我很苦恼。并不是苦恼报告的提交截止日期，而是苦恼于根本无法集中注意力完成这份报告。我不想让我的余生都坐在一张桌子前写这样的报告。事实上，我甚至不想这周余下的时间里做这种事情。</p>
+<h3>这完全是好奇心的驱使，自发的学习</h3>
+<p>接下来的几周里，我所有的时间都在思考，计划以及做现实生活的各种交流、公关活动。我最终确定了一个目标，开始开发了。我大概90%的时间在家里开发，其它时间在咖啡馆里。辞职2个月后，我用了一个月的开发完成了1.0版本的<a title="" href="http://www.jamcamera.com/" target="_blank">JamCam</a>。我可以在这里大说它一番，但我想你自己去看看才是最简单的方法。</p>
+<p><img alt="" src="http://media.guideplus.me/2015/01/04/37B86.png"></p>
+' required></textarea>
     </div>
   </div>
 

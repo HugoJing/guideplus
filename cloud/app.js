@@ -36,7 +36,7 @@ app.get('/story/:id', function (req, res) {
     var id = req.params.id;
     mstory.findStoryById(id).then(function (story) {
       if (story) {
-        res.render('story', {story: story});
+        res.render('story',{story: story,"layout":false} );
       } else {
         renderError(res, '无法找到这篇帖子');
       }

@@ -20,7 +20,11 @@ function transfromStory(curStory) {
   return {
     title:curStory.get('title'),
     id:curStory.id,
-    content:curStory.get('content')
+    content:curStory.get('content'),
+    type:curStory.get('type'),
+    readLink:curStory.get('readLink'),
+    from:curStory.get('from'),
+    image:curStory.get('image')
   };
 }
 
