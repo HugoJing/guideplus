@@ -16,8 +16,6 @@
  * AUTHOR: Mark Reid <mark@reid.name>
  */
 
-.hide{display:none;}
-
 /* @group Reset */
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,p,blockquote,th,td,abbr,span { margin:0; padding:0;}
 /* @end */
