@@ -24,6 +24,7 @@ function transfromStory(curStory) {
     type:curStory.get('type'),
     readLink:curStory.get('readLink'),
     from:curStory.get('from'),
+    url:curStory.get('url'),
     image:curStory.get('image')
   };
 }

@@ -21,7 +21,7 @@ body {
     position: absolute;
     background-color: #f9f9f9;
     border-radius: 40px;
-    background-image: url("./images/iphone.jpg");
+    background-image: url("/images/iphone.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
 
@@ -47,7 +47,7 @@ body {
     width: 320px;
     height: 80px;
     position: relative;
-    background-image: url("./images/logo.png");
+    background-image: url("/images/logo.png");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
@@ -60,7 +60,7 @@ body {
     width: 320px;
     height: 60px;
     position: relative;
-    background-image: url("./images/slogan.png");
+    background-image: url("/images/slogan.png");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
@@ -91,11 +91,11 @@ body {
 }
 
 #ios{
-    background: url("./images/btn_ios.svg");
+    background: url("/images/btn_ios.svg");
 }
 
 #android{
-    background: url("./images/btn_android.svg");
+    background: url("/images/btn_android.svg");
 }
 
 
@@ -104,7 +104,7 @@ body {
     width: 50px;
     height: 50px;
     position: relative;
-    background-image: url("./images/scan.png");
+    background-image: url("/images/scan.png");
     background-repeat: no-repeat;
     background-size: 100%;
     margin: 0 auto;
@@ -142,7 +142,7 @@ body {
     bottom: 0;
     left: 0;
 
-    background-image: url("./images/btn_m.png");
+    background-image: url("/images/btn_m.png");
     background-repeat: no-repeat;
     background-size: 190px 40px;
     background-color: rgba(255,255,255,.9);
@@ -213,7 +213,7 @@ body {
         margin-top: 0;
         top: 140px;
         height: 670px;
-        background-color: white; 
+        background-color: white;
     }
 
     #container{

@@ -1,71 +1,101 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title><%= story.title %> | <%= story.type %> | Guide+ </title>
-	<!-- Type：<%= story.type %> -->
-
-	<!-- Adaptive Device Screen Size -->
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="/css/guideplus_post_v1.0.css" type="text/css" />
-
+    <meta charset="utf-8">
+    <title><%= story.title %> | <%= story.type %> | Guide+ </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="阅读,读书,读物">
+    <meta name="description" content="「Guide+」是一款全新体验的阅读工具，快速得到你感兴趣的内容。">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link href="/css/story1.css" rel="stylesheet">
+    <script>var Do=function(){Do.actions.push([].slice.call(arguments))};Do.ready=function(){Do.actions.push([].slice.call(arguments))};Do.add=Do.define=function(a,b){Do.mods[a]=b};Do.global=function(){Do.global.mods=Array.prototype.concat(Do.global.mods,[].slice.call(arguments))};Do.global.mods=[];Do.mods={};Do.actions=[];
+    </script>
+    <link href="/css/story2.css" rel="stylesheet">
 </head>
 
 <body>
-<div id="site">
 
-    <div id="read_head">
-
-        <p class="read-from"><%= story.from %></p>
-        <!-- <img src="/post/logos/< logoUrl >" alt="< logoText >" class="read-logo" /> -->
-
+    <div class="bs-header">
+        <div class="container">
+            <ul><li><a href="/"> &nbsp;&nbsp;下载 APP&nbsp;&nbsp; </a></li></ul>
+            <div class="nav-logo">
+                <a class="logo" href="/">
+                    <img width="48" height="48" src="/images/logo.png" />
+                </a>
+                <a class="slogan" href="/">
+                    Guide+
+                    <span>让阅读简单到极致</span>
+                </a>
+            </div>
+        </div>
     </div>
 
-	<div id="page">
-		<h1><%= story.title %></h1>
 
-			<p><img alt="<%= story.title %>" src="<%= story.image %>"></p><br />
+    <div class="container bs-docs-container">
 
-			<!-- 每个段落(文本/图片)包裹在 <p></p><br /> 中 -->
-			<%- story.content %>
+        <div class="post-container">
+                <div><h1 id="title"><%= story.title %></h1></div>
+                <div class="meta">&nbsp;&nbsp;摘自&nbsp;<span><%= story.from %></span>
+                </div>
 
-	<br /><br />
-	<div class="read-link"><a href="<%= story.readLink %>" target="_blank">查看原文 >></a></div>
+                <div class="post-body">
+                    <div id="content">
+                        <div class="content_img"><img src="<%= story.image %>" /></div>
+                        <%- story.content %>
 
-	</div>
+                    </div>
+                    <div class="post-ft">
+                        <br/><br/>
+                        <a href="<%= story.readLink %>">查看原文>>&nbsp;&nbsp;</a>
+                        <span>&copy;&nbsp;版权属于原作者&nbsp;&nbsp;商业转载请联系作者</span>
+
+                        <br/><br/>
+
+                    </div>
+
+
+                </div>
+        </div>
+
+    <div class="footer">
+        <div class="download">
+            <div class="qr">
+                <h2 class="heading">分享到微信/微博</h2>
+                <span class="subheading">请扫描下方二维码</span>
+                <div class="qr-wrap">
+                    <img src="http://s.jiathis.com/qrcode.php?url=<%= story.url %>?via=wechat_qr" alt="扫一扫分享本文到微信" width="148" height="148">
+                </div>
+            </div>
+
+            <div class="copyright">
+                &#169;&nbsp;2015&nbsp;<a href="/">guideplus.me</a>
+            </div>
+
+
+
+         <div id="sideNav">
+              <a href="/" class="download">
+                  <img width="34" height="34" src="/images/logo.png" />
+                  去下载
+              </a>
+
+              <a href="#" id="backToTop">
+                  <b class="arrow"></b>回顶部
+              </a>
+         </div>
+    </div>
+
 
 </div>
 
-<!-- // <a id="message_a" href="http://guideplus.me/">
-// 	<div id="message">
-// 		<div class="message-inner">
-// 			<div class="message-logo"></div>
-// 			<div class="message-text">
-// 				<p class="message-text-title"> Guide+ </p>
-// 				<p class="message-text-inner">只有 1% 的聪明人在使用它</p>
-// 			</div>
-// 			<div class="message-button">立即下载</div>
-// 		</div>
-// 	</div>
-// </a> -->
+    <script src="/js/story1.js"></script>
+    <script src="/js/story2.js"></script>
+    <script src="/js/retina.min.js"></script>
 
-<!-- <div id="bottom">
-	<div class="bottom-logo"><img src="http://static.qiniudn.com/article/ui-image/logo.png" alt="logo" /></div>
-	<div class="bottom-title"><p class="bottom-text"> Guide+ 只有 1% 的聪明人在使用它</p></div>
-	<div class="bottom-about"><a href="http://guideplus.me/" class="about-link">了解更多</a></div>
-</div> -->
+    <script>
+    Do(function(){var d=$(window),a=d.height()*1.5,c=$("#sideNav");btnBackToTop=c.find("#backToTop");function b(){if(d.scrollTop()>a){c.fadeIn(150)}else{c.hide()}}d.scroll(b);btnBackToTop.click(function(e){d.scrollTop(0);e.preventDefault()});b()});
+    </script>
+
 
 </body>
-
-	<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="/js/jquery.i18n.properties-min-1.0.9.js"></script>
-	<script type="text/javascript" src="/js/retina.min.js"></script>
-	<!-- <script type="text/javascript" src="http://guideplus.qiniudn.com/static/post/js/readScript-web.js"></script> -->
-	<div class="hide">
-        <!-- baidu tongji -->
-        <script src="http://s4.cnzz.com/stat.php?id=1254025727&web_id=1254025727" language="JavaScript"></script>
-      </div>
-
 </html>

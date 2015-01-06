@@ -14,7 +14,7 @@ function renderError(res, error) {
   }
   if (typeof error != 'string')
     error = util.inspect(error);
-  res.render('500', {error: error});
+  res.render('500', {error: error,"layout":false});
 }
 
 function renderErrorFn(res) {

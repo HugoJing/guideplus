@@ -31,6 +31,11 @@ var Story = AV.Object.extend('Story');
 
 
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
+
+// 下载页/首页
+app.get('/', function(req, res) {
+    res.render('index',{"layout":false});
+});
 // 内容页
 app.get('/story/:id', function (req, res) {
     var id = req.params.id;
@@ -42,7 +47,6 @@ app.get('/story/:id', function (req, res) {
       }
     }, renderErrorFn(res));
 });
-
 // 列表页
 // app.get('/admin/storys', function (req, res) {
 //   var skip = req.query.skip;
@@ -57,7 +61,6 @@ app.get('/story/:id', function (req, res) {
 //       res.render('admin_list', {storys: storys});
 //     }, renderErrorFn(res));
 // });
-
 // 录入页
 app.get('/admin/storys/new', function(req, res) {
     res.render('new');
@@ -85,39 +88,9 @@ app.post('/admin/storys/new', function (req, res) {
     });
 })
 
-app.get('/admin/upload', function(req, res) {
-    res.render('upload');
-});
-
-app.get('/putauth.json', function(req, res){
-
-    // our front-end isnot serve by node server, all of them are static files
-    // so we need output response headers for CORS
-    // or you can change to use template engine for render pages
-    res.header('Pragma', 'no-cache');
-    res.header('Cache-Control', 'no-store, no-cache, must-revalidate');
-    res.header('X-Content-Type-Options', 'nosniff');
-    res.header('Access-Control-Allow-Origin', '*');
-
-    // output response body as json format
-    rs.putAuth(function(resp){
-        output = resp;
-        if(resp.code == 200){output.data.bucket = bucket;}
-        console.log("\n===> Response Output: ", output);
-        res.json(output);
-    });
-
-});
-
-//     mstory.createStory(req.body).then(function () {
-//         console.log("新建了一条帖子");
-//         //res.redirect('/admin/storys/new');
-//     }, mutil.renderErrorFn(res));
-// });
-
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
 app.listen();
 // 渲染一个 404 页面
 app.use(function(req, res, next){
-  res.status(404).render('404', {title: "非常抱歉，该页面找不到了。"});
+  res.status(404).render('404', {title: "非常抱歉，该页面找不到了。","layout":false});
 });
