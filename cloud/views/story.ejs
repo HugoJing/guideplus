@@ -3,13 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title><%= story.title %> | <%= story.type %> | Guide+ </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="user-scalable=no, width=device-width">
     <meta name="keywords" content="阅读,读书,读物">
     <meta name="description" content="「Guide+」是一款全新体验的阅读工具，快速得到你感兴趣的内容。">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link href="favicon.ico" type="image/x-icon" rel=icon>
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
     <link href="/css/story1.css" rel="stylesheet">
-    <script>var Do=function(){Do.actions.push([].slice.call(arguments))};Do.ready=function(){Do.actions.push([].slice.call(arguments))};Do.add=Do.define=function(a,b){Do.mods[a]=b};Do.global=function(){Do.global.mods=Array.prototype.concat(Do.global.mods,[].slice.call(arguments))};Do.global.mods=[];Do.mods={};Do.actions=[];
-    </script>
     <link href="/css/story2.css" rel="stylesheet">
 </head>
 
@@ -24,10 +23,11 @@
                 </a>
                 <a class="slogan" href="/">
                     Guide+
-                    <span>让阅读简单到极致</span>
+                    <span>只要你感兴趣的内容</span>
                 </a>
             </div>
         </div>
+
     </div>
 
 
@@ -36,6 +36,7 @@
         <div class="post-container">
                 <div><h1 id="title"><%= story.title %></h1></div>
                 <div class="meta">&nbsp;&nbsp;摘自&nbsp;<span><%= story.from %></span>
+                <div class="createdAt"><%= story.createdAt %></div>
                 </div>
 
                 <div class="post-body">
@@ -46,10 +47,8 @@
                     </div>
                     <div class="post-ft">
                         <br/><br/>
-                        <a href="<%= story.readLink %>">查看原文>>&nbsp;&nbsp;</a>
+                        <a href="<%= story.readLink %>">查看原文&nbsp;&nbsp;</a>
                         <span>&copy;&nbsp;版权属于原作者&nbsp;&nbsp;商业转载请联系作者</span>
-
-                        <br/><br/>
 
                     </div>
 
@@ -63,12 +62,14 @@
                 <h2 class="heading">分享到微信/微博</h2>
                 <span class="subheading">请扫描下方二维码</span>
                 <div class="qr-wrap">
-                    <img src="http://s.jiathis.com/qrcode.php?url=<%= story.url %>?via=wechat_qr" alt="扫一扫分享本文到微信" width="148" height="148">
+                    <img src="http://s.jiathis.com/qrcode.php?url=<%= story.url %>?via=wechat_qr" alt="扫一扫分享本文到微信" width="134" height="134">
                 </div>
             </div>
 
             <div class="copyright">
+                <i>
                 &#169;&nbsp;2015&nbsp;<a href="/">guideplus.me</a>
+                </i>
             </div>
 
 
@@ -94,8 +95,64 @@
 
     <script>
     Do(function(){var d=$(window),a=d.height()*1.5,c=$("#sideNav");btnBackToTop=c.find("#backToTop");function b(){if(d.scrollTop()>a){c.fadeIn(150)}else{c.hide()}}d.scroll(b);btnBackToTop.click(function(e){d.scrollTop(0);e.preventDefault()});b()});
+    // 微信/微博：自定义图标 和 分享链接
+    var imgUrl = "http://guideplus.me/images/logo.png";  //注意必须是绝对路径
+
+       var lineLink = "<%= story.url %>";   //同样，必须是绝对路径
+       var descContent = '发现一篇好文：<%= story.title %>'; //分享给朋友或朋友圈时的文字简介
+       var shareTitle = 'Guide+';  //分享title
+       var appid = ''; //apiID，可留空
+
+       function shareFriend() {
+           WeixinJSBridge.invoke('sendAppMessage',{
+               "appid": appid,
+               "img_url": imgUrl,
+               "img_width": "200",
+               "img_height": "200",
+               "link": lineLink,
+               "desc": descContent,
+               "title": shareTitle
+           }, function(res) {
+               //_report('send_msg', res.err_msg);
+           })
+       }
+       function shareTimeline() {
+           WeixinJSBridge.invoke('shareTimeline',{
+               "img_url": imgUrl,
+               "img_width": "200",
+               "img_height": "200",
+               "link": lineLink,
+               "desc": descContent,
+               "title": shareTitle
+           }, function(res) {
+                  //_report('timeline', res.err_msg);
+           });
+       }
+       function shareWeibo() {
+           WeixinJSBridge.invoke('shareWeibo',{
+               "content": descContent,
+               "url": lineLink,
+           }, function(res) {
+               //_report('weibo', res.err_msg);
+           });
+       }
+       // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+       document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+           // 发送给好友
+           WeixinJSBridge.on('menu:share:appmessage', function(argv){
+               shareFriend();
+           });
+           // 分享到朋友圈
+           WeixinJSBridge.on('menu:share:timeline', function(argv){
+               shareTimeline();
+           });
+           // 分享到微博
+           WeixinJSBridge.on('menu:share:weibo', function(argv){
+               shareWeibo();
+           });
+       }, false);
     </script>
-
-
 </body>
+    <!-- CNZZ tongji -->
+    <div class="hide"><script src="http://s4.cnzz.com/stat.php?id=1254025727&web_id=1254025727" language="JavaScript"></script></div>
 </html>

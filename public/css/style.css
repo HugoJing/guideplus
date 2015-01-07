@@ -15,6 +15,10 @@ body {
     background-color: #FFF;
 }
 
+.hide {
+    display: none
+}
+
 #phone{
     width: 320px;
     height: 600px;
@@ -47,7 +51,7 @@ body {
     width: 320px;
     height: 80px;
     position: relative;
-    background-image: url("/images/logo.png");
+    background-image: url("/images/dlogo.png");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
