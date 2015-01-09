@@ -668,10 +668,11 @@ hr {
 
 .post-container .meta {
 	color: #888;
-	font-size: 14px
+	font-size: 14px;
+	float: center;
 }
 
-.post-container .createdAt {
+.post-container .type {
 	color: #888;
 	font-size: 14px;
 	display: inline-block;
@@ -681,6 +682,12 @@ hr {
 }
 
 .post-container .meta span {
+	font-family: 'avc';
+    color: #66cc99;
+    font-size: 14px
+}
+
+.post-container .type span {
 	font-family: 'avc';
     color: #66cc99;
     font-size: 14px
@@ -770,6 +777,8 @@ hr {
 .download .qr .qr-wrap {
     padding-top: 15px;
     padding-bottom: 8px;
+    position: relative;
+    left: 37%;
 }
 
 .download .prestoicon-android,.download .prestoicon-apple {
