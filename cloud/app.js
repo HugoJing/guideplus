@@ -4,10 +4,15 @@
 // 在 Cloud code 里初始化 Express 框架
 var express = require('express');
 var app = express();
-var _ = require('underscore');
 var expressLayouts = require('express-ejs-layouts');
-//var avosExpressHttpsRedirect = require('avos-express-https-redirect');
-
+// var avosExpressHttpsRedirect = require('avos-express-https-redirect');
+// var avosExpressCookieSession = require('avos-express-cookie-session');
+var wechat = require('wechat');
+var config = {
+  token: 'fa21gas2asg2sas2aaa1f0',
+  appid: 'wx1ae58e7dc3df808d',
+  encodingAESKey: 'UA9MA0N5VspKF2S1mBIYQjPxwXkw4VcfjgGBlvBW88P'
+};
 
 var mstory = require('cloud/mstory.js');
 var mlog = require('cloud/mlog.js');
@@ -16,9 +21,53 @@ var mutil = require('cloud/mutil.js');
 
 app.set('views','cloud/views');   // 设置模板目录
 app.set('view engine', 'ejs');    // 设置 template 引擎
-//app.use(avosExpressHttpsRedirect());
-app.use(express.bodyParser());    // 读取请求 body 的中间件
-app.use(expressLayouts);
+// app.use(avosExpressHttpsRedirect());
+app.use(express.bodyParser());        // 读取请求body的中间件
+// app.use(express.cookieParser(config.cookieParserSalt));
+// app.use(avosExpressCookieSession({ 
+//     cookie: { 
+//         maxAge: 3600000 
+//     }, 
+//     fetchUser: true
+// }));
+//wechat
+app.use(express.query());
+app.use('/wechat', wechat(config, function (req, res, next) {
+  // 微信输入信息都在req.weixin上
+  var message = req.weixin;
+  if (message.FromUserName === 'diaosi') {
+    // 回复屌丝(普通回复)
+    res.reply('hehe');
+  } else if (message.FromUserName === 'text') {
+    //你也可以这样回复text类型的信息
+    res.reply({
+      content: 'text object',
+      type: 'text'
+    });
+  } else if (message.FromUserName === 'hehe') {
+    // 回复一段音乐
+    res.reply({
+      type: "music",
+      content: {
+        title: "来段音乐吧",
+        description: "一无所有",
+        musicUrl: "http://mp3.com/xx.mp3",
+        hqMusicUrl: "http://mp3.com/xx.mp3",
+        thumbMediaId: "thisThumbMediaId"
+      }
+    });
+  } else {
+    // 回复高富帅(图文回复)
+    res.reply([
+      {
+        title: '你来我家接我吧',
+        description: '这是女神与高富帅之间的对话',
+        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+        url: 'http://nodeapi.cloudfoundry.com/'
+      }
+    ]);
+  }
+}));
 
 
 var renderError = mutil.renderError;
