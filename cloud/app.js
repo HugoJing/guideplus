@@ -8,16 +8,21 @@ var expressLayouts = require('express-ejs-layouts');
 // var avosExpressHttpsRedirect = require('avos-express-https-redirect');
 // var avosExpressCookieSession = require('avos-express-cookie-session');
 var wechat = require('wechat');
+var API = require('wechat-api');
+
 var config = {
   token: 'fa21gas2asg2sas2aaa1f0',
   appid: 'wx1ae58e7dc3df808d',
   encodingAESKey: 'UA9MA0N5VspKF2S1mBIYQjPxwXkw4VcfjgGBlvBW88P'
 };
+appid = 'wx1ae58e7dc3df808d';
+secret = '723634002c069dc416d58a836d68c250';
+var api = new API(appid, secret);
 
 var mstory = require('cloud/mstory.js');
 var mlog = require('cloud/mlog.js');
 var mutil = require('cloud/mutil.js');
-
+var mwechat = require('cloud/mwechat.js');
 
 app.set('views','cloud/views');   // 设置模板目录
 app.set('view engine', 'ejs');    // 设置 template 引擎
@@ -30,54 +35,13 @@ app.use(express.bodyParser());        // 读取请求body的中间件
 //     }, 
 //     fetchUser: true
 // }));
-//wechat
-app.use(express.query());
-app.use('/wechat', wechat(config, function (req, res, next) {
-  // 微信输入信息都在req.weixin上
-  var message = req.weixin;
-  if (message.FromUserName === 'diaosi') {
-    // 回复屌丝(普通回复)
-    res.reply('hehe');
-  } else if (message.FromUserName === 'text') {
-    //你也可以这样回复text类型的信息
-    res.reply({
-      content: 'text object',
-      type: 'text'
-    });
-  } else if (message.FromUserName === 'hehe') {
-    // 回复一段音乐
-    res.reply({
-      type: "music",
-      content: {
-        title: "来段音乐吧",
-        description: "一无所有",
-        musicUrl: "http://mp3.com/xx.mp3",
-        hqMusicUrl: "http://mp3.com/xx.mp3",
-        thumbMediaId: "thisThumbMediaId"
-      }
-    });
-  } else {
-    // 回复高富帅(图文回复)
-    res.reply([
-      {
-        title: '你来我家接我吧',
-        description: '这是女神与高富帅之间的对话',
-        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-        url: 'http://nodeapi.cloudfoundry.com/'
-      }
-    ]);
-  }
-}));
-
 
 var renderError = mutil.renderError;
 var renderErrorFn = mutil.renderErrorFn;
 var renderForbidden = mlog.renderForbidden;
 var renderInfo = mutil.renderInfo;
 
-
 var Story = AV.Object.extend('Story');
-
 
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
 
@@ -135,7 +99,83 @@ app.post('/admin/storys/new', function (req, res) {
             renderErrorFn(res);
         }
     });
-})
+});
+
+//wechatServer
+
+//wechatMenu
+api.createMenu(mwechat.menu,function (err, result) {});
+//wechat
+app.use('/wechat', wechat(config).text(function (message, req, res, next) {
+    var openid = message.FromUserName;
+    exports.getUser = api.getUser(openid, function (err, result) {});
+    var user = getUser(openid);
+    var nickname = user.nickname;
+    res.reply({
+        content: 'Hi，你的消息我已收到。<br/>来找我玩吧，点击“获取”，我就把一封帖子发给你。<br/>不会主动打扰你，只愿静静地等着你。<br/>   Guide+ 敬上',
+        type: 'text'
+    });
+}).image(function (message, req, res, next) {
+  // TODO
+}).voice(function (message, req, res, next) {
+  // TODO
+}).video(function (message, req, res, next) {
+  // TODO
+}).location(function (message, req, res, next) {
+  // TODO
+}).link(function (message, req, res, next) {
+  // TODO
+}).event(function (message, req, res, next) {
+    if (message.EventKey === 'getStory') {
+        res.reply([
+             {
+                title: '《失控》',
+                description: '书名《失控》，黑黄色的封面，让人以为又是一本写于90年代的末日论著作。实际上这是一本充满浪漫主义情怀的书。',
+                picurl: 'http://media.guideplus.me/2015/01/06/97875133007111883157-fm.jpg',
+                url: 'http://guideplus.me/story/54ab6924e4b031f4ee6cdf3a'
+             }
+        ]);
+    }
+}).middlewarify());
+
+// app.use('/wechat', wechat(config, function (req, res, next) {
+//   // 微信输入信息都在req.weixin上
+//   var message = req.weixin;
+//   if (message.FromUserName === 'diaosi') {
+//     // 回复屌丝(普通回复)
+//     res.reply('hehe');
+//   } else if (message.FromUserName === 'text') {
+//     //你也可以这样回复text类型的信息
+//     res.reply({
+//       content: 'text object',
+//       type: 'text'
+//     });
+//   } else if (message.FromUserName === 'hehe') {
+//     // 回复一段音乐
+//     res.reply({
+//       type: "music",
+//       content: {
+//         title: "来段音乐吧",
+//         description: "一无所有",
+//         musicUrl: "http://mp3.com/xx.mp3",
+//         hqMusicUrl: "http://mp3.com/xx.mp3",
+//         thumbMediaId: "thisThumbMediaId"
+//       }
+//     });
+//   } else {
+//     // 回复高富帅(图文回复)
+//     res.reply([
+//       {
+//         title: '你来我家接我吧',
+//         description: '这是女神与高富帅之间的对话',
+//         picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+//         url: 'http://nodeapi.cloudfoundry.com/'
+//       }
+//     ]);
+//   }
+// }));
+
+
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
 app.listen();
