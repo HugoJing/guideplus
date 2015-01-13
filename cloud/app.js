@@ -107,12 +107,8 @@ app.post('/admin/storys/new', function (req, res) {
 api.createMenu(mwechat.menu,function (err, result) {});
 //wechat
 app.use('/wechat', wechat(config).text(function (message, req, res, next) {
-    var openid = message.FromUserName;
-    exports.getUser = api.getUser(openid, function (err, result) {});
-    var user = getUser(openid);
-    var nickname = user.nickname;
     res.reply({
-        content: 'Hi，你的消息我已收到。<br/>来找我玩吧，点击“获取”，我就把一封帖子发给你。<br/>不会主动打扰你，只愿静静地等着你。<br/>   Guide+ 敬上',
+        content: 'Hi，你的消息我已收到。                    来找我玩吧，点击“获取”，我就把一封帖子发给你。                    不会主动打扰你，只愿静静地等着你。                    Guide+ 敬上',
         type: 'text'
     });
 }).image(function (message, req, res, next) {
@@ -137,43 +133,6 @@ app.use('/wechat', wechat(config).text(function (message, req, res, next) {
         ]);
     }
 }).middlewarify());
-
-// app.use('/wechat', wechat(config, function (req, res, next) {
-//   // 微信输入信息都在req.weixin上
-//   var message = req.weixin;
-//   if (message.FromUserName === 'diaosi') {
-//     // 回复屌丝(普通回复)
-//     res.reply('hehe');
-//   } else if (message.FromUserName === 'text') {
-//     //你也可以这样回复text类型的信息
-//     res.reply({
-//       content: 'text object',
-//       type: 'text'
-//     });
-//   } else if (message.FromUserName === 'hehe') {
-//     // 回复一段音乐
-//     res.reply({
-//       type: "music",
-//       content: {
-//         title: "来段音乐吧",
-//         description: "一无所有",
-//         musicUrl: "http://mp3.com/xx.mp3",
-//         hqMusicUrl: "http://mp3.com/xx.mp3",
-//         thumbMediaId: "thisThumbMediaId"
-//       }
-//     });
-//   } else {
-//     // 回复高富帅(图文回复)
-//     res.reply([
-//       {
-//         title: '你来我家接我吧',
-//         description: '这是女神与高富帅之间的对话',
-//         picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-//         url: 'http://nodeapi.cloudfoundry.com/'
-//       }
-//     ]);
-//   }
-// }));
 
 
 
