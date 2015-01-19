@@ -27,6 +27,7 @@ var mwechat = require('cloud/mwechat.js');
 app.set('views','cloud/views');   // 设置模板目录
 app.set('view engine', 'ejs');    // 设置 template 引擎
 // app.use(avosExpressHttpsRedirect());
+app.use(expressLayouts);
 app.use(express.bodyParser());        // 读取请求body的中间件
 // app.use(express.cookieParser(config.cookieParserSalt));
 // app.use(avosExpressCookieSession({ 
