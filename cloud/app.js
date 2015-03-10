@@ -45,6 +45,7 @@ var renderForbidden = mlog.renderForbidden;
 var renderInfo = mutil.renderInfo;
 
 var Story = AV.Object.extend('Story');
+var User = AV.Object.extend('_User');
 
 // 使用 Express 路由 API 服务 / 的 HTTP GET 请求
 
@@ -107,11 +108,68 @@ app.post('/admin/storys/new', function (req, res) {
 app.get('/login', function(req, res) {
   res.render('login');
 });
-// app.post('/login', function (req, res) {
-app.get('/register', function(req, res) {
-  res.render('register');
+
+app.post('/login', function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    AV.User.logIn(username, password, {
+        success: function (user) {
+            res.redirect('/tickets');
+        },
+        error: function (user, error) {
+            renderError(res, error.message);
+        }
+    });
 });
-// app.post('/register', function (req, res) {
+
+app.get('/register_1', function(req, res) {
+  res.render('register_1');
+});
+app.get('/register_3', function(req, res) {
+      var currentUser = AV.User.current();
+      if (currentUser) {
+        // do stuff with the user
+        res.render('register_3' ,{user: currentUser});
+      } else {
+        // show the signup or login page
+      } 
+});
+
+app.post('/register_1', function (req, res) {
+  var user = new AV.User();
+  user.set("username", req.body.phone);
+  user.set("password", "123456");
+  user.setMobilePhoneNumber(req.body.phone);
+  user.signUp(null).then(function (user) {
+        success: function () {
+            res.redirect('/register_3');
+        },
+        error: function (user, error) {
+            mutil.renderError(res, error.message);
+        }
+  });
+});
+  
+app.post('/register_2', function (req, res) {
+  AV.User.verifyMobilePhone(req.body.PIN).then(function(){
+      res.redirect('/register_3');
+    }, function(err){
+      console.log('验证失败');
+      renderErrorFn(res);
+    });
+});
+app.post('/register_3', function (req, res) {
+  var user = AV.User.current();
+  user.setPassword(req.body.password);
+  user.save().then(function () {
+    console.log('User is saved.');
+    renderInfo(res, '<p>成功！</p>');
+  },function (err) {
+    console.log('User is saved.');
+    renderErrorFn(res);
+  });
+});
+
 
 //Wechat Server
 //wechatMenu
@@ -121,7 +179,7 @@ api.createMenu(mwechat.menu, function (err, result) {});
 //wechat
 app.use('/wechat', wechat(config).text(function (message, req, res, next) {
     res.reply({
-        content: 'Hi，你的消息我已收到。\n来找我玩吧，点击“获取”，我就把一封帖子发给你。\nGuide+ 敬上',
+        content: 'Hi，你的消息我已收到。\n来找我玩吧，点“获取”，我就把一封帖子发给你。\nGuide+ 敬上',
         type: 'text'
     });
 }).image(function (message, req, res, next) {

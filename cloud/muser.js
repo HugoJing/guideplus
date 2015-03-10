@@ -58,8 +58,15 @@ function findUserByName(name){
   });
 }
 
+function findUserByMPN(MPN){
+  return findUser(function(q){
+    q.equalTo('mobilePhoneNumber',MPN)
+  });
+}
+
 exports.findUserById = findUserById;
 exports.findRawUserById=findRawUserById;
 exports.transfromUser=transfromUser;
 exports.updateCurUser=updateCurUser;
 exports.findUserByName=findUserByName;
+exports.findUserByMPN=findUserByMPN;

@@ -1,0 +1,39 @@
+<script>
+  $(function () {
+    function empty(str) {
+      return str == null || str == '';
+    }
+
+
+    // $('#loginForm').submit(function (event) {
+    //   var username = $('#usernameInput').val();
+    //   if (empty(username)) {
+    //     alert('用户名不能为空');
+    //     return false;
+    //   }
+      var password = $('#passwordInput').val();
+      if (empty(password)) {
+        alert('密码不能为空');
+        return false;
+      }
+      return true;
+    });
+  });
+</script>
+
+<form id="reg3Form" class="search-form-middle text-center" action="/register_3" method="POST">
+  <div class="form-group">
+      <div class="controls">
+        <input type="text" disabled="disabled" name="phone" id="inputPhone" class="form-control" placeholder="<%= user.mobilePhoneNumber %>" required>
+      </div>
+  </div>
+  
+  <div class="form-group">
+      <div class="controls">
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
+      </div>
+
+  </div>
+
+  <p><input class="btn btn-primary" name="go" type="submit" value="注册"></p>
+</form>

@@ -1,0 +1,66 @@
+<script type="text/javascript">
+        $(function () {
+            $("#getPIN").click(function () {
+                //执行获取验证码的操作
+                	
+                GetNumber();
+            });
+        })
+
+        var count = 60;
+        function GetNumber() {
+            $("#getPIN").attr("disabled", "disabled");
+            $("#getPIN").val(count + "秒之后点击获取")
+            count--;
+            if (count > 0) {
+                setTimeout(GetNumber, 1000);
+            }
+            else {
+                $("#getPIN").val("点击获取验证码");
+                $("#getPIN").attr("disabled", "");
+            }
+        }
+
+        function tjbtn(){  
+            var inputPhone=document.getElementById("inputPhone");   
+            if(inputPhone.value==""){  
+                alert("username不能为空");  
+                inputPhone.focus();  
+            }else{  
+                document.getElementById("reg1Form").submit();  
+            }  
+        }
+        
+</script>
+
+<form id="reg1Form" enctype="multipart/form-data" action="/register_1" method="post">
+	<div class="form-group">
+	    <div class="controls">
+	      <input type="text" name="phone" id="inputPhone" class="form-control" placeholder="手机号" required>
+	    </div>
+	</div>
+
+	<!-- <button id="getPIN" type="submit" class="btn btn-default">点击获取验证码</button> -->
+	<p><input class="btn btn-default" id="getPIN" type="button" onclick="tjbtn()" value="点击获取验证码"></p>
+
+</form>
+
+<form id="reg2Form" enctype="multipart/form-data" action="/register_2" method="post">
+	<div class="form-group">
+	    <div class="controls">
+	      <input type="text" name="PIN" id="inputPIN" class="form-control" placeholder="验证码" required>
+	    </div>
+
+	</div>
+
+	  <div class="form-group">
+	    <button type="submit" class="btn btn-primary">下一步</button>
+	    <a href="/login" class="btn btn-default">已有帐号？点击登录</a>
+	  </div>
+<!-- 		<a href="/register_3" class="btn btn-primary">Next</a>
+		<a href="/login" class="btn btn-default">已有帐号？点击登录</a> -->
+
+</form>
+
+
+
