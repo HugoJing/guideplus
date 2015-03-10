@@ -20,9 +20,11 @@ secret = '723634002c069dc416d58a836d68c250';
 var api = new API(appid, secret);
 
 var mstory = require('cloud/mstory.js');
+var muser = require('cloud/muser.js');
 var mlog = require('cloud/mlog.js');
 var mutil = require('cloud/mutil.js');
 var mwechat = require('cloud/mwechat.js');
+
 
 app.set('views','cloud/views');   // 设置模板目录
 app.set('view engine', 'ejs');    // 设置 template 引擎
@@ -44,7 +46,7 @@ var renderInfo = mutil.renderInfo;
 
 var Story = AV.Object.extend('Story');
 
-// 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
+// 使用 Express 路由 API 服务 / 的 HTTP GET 请求
 
 // 下载页/首页
 app.get('/', function(req, res) {
@@ -101,15 +103,25 @@ app.post('/admin/storys/new', function (req, res) {
         }
     });
 });
+// 登录页
+app.get('/login', function(req, res) {
+  res.render('login');
+});
+// app.post('/login', function (req, res) {
+app.get('/register', function(req, res) {
+  res.render('register');
+});
+// app.post('/register', function (req, res) {
 
-//wechatServer
-
+//Wechat Server
 //wechatMenu
-api.createMenu(mwechat.menu,function (err, result) {});
+api.createMenu(mwechat.menu, function (err, result) {});
+//wechatUser
+// api.getUser(openid, function (err, result) {});
 //wechat
 app.use('/wechat', wechat(config).text(function (message, req, res, next) {
     res.reply({
-        content: 'Hi，你的消息我已收到。                    来找我玩吧，点击“获取”，我就把一封帖子发给你。                    不会主动打扰你，只愿静静地等着你。                    Guide+ 敬上',
+        content: 'Hi，你的消息我已收到。\n来找我玩吧，点击“获取”，我就把一封帖子发给你。\nGuide+ 敬上',
         type: 'text'
     });
 }).image(function (message, req, res, next) {
@@ -124,14 +136,23 @@ app.use('/wechat', wechat(config).text(function (message, req, res, next) {
   // TODO
 }).event(function (message, req, res, next) {
     if (message.EventKey === 'getStory') {
-        res.reply([
-             {
-                title: '《失控》',
-                description: '书名《失控》，黑黄色的封面，让人以为又是一本写于90年代的末日论著作。实际上这是一本充满浪漫主义情怀的书。',
-                picurl: 'http://media.guideplus.me/2015/01/06/97875133007111883157-fm.jpg',
-                url: 'http://guideplus.me/story/54ab6924e4b031f4ee6cdf3a'
-             }
+        if (openid) {
+          res.reply({
+            content: 'Sorry~还不知道你对什么话题感兴趣呢~\n<a href="http://guideplus.me/">花 1 分钟去设置一下\>\></a>',
+            type: 'text'
+          })
+
+
+        }else{
+          res.reply([
+               {
+                  title: '《失控》',
+                  description: '书名《失控》，黑黄色的封面，让人以为又是一本写于90年代的末日论著作。实际上这是一本充满浪漫主义情怀的书。',
+                  picurl: 'http://media.guideplus.me/2015/01/06/97875133007111883157-fm.jpg',
+                  url: 'http://guideplus.me/story/54ab6924e4b031f4ee6cdf3a'
+               }
         ]);
+      }
     }
 }).middlewarify());
 
