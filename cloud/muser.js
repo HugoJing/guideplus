@@ -5,14 +5,14 @@
 var User = AV.Object.extend('_User');
 
 function findUser(queryFn) {
-	var q = new AV.Query(user);
+	var q = new AV.Query(User);
  	queryFn.call(this, q);
  	return q.first();
 }
 
 function findRawUserById (id) {
  	return findUser(function (q) {
- 		q.equalTo('ObjectId', id);
+ 		q.equalTo('objectId', id);
  	});
 }
 
@@ -27,16 +27,8 @@ function findUserById(id) {
 
 function updateCurUser(map) {
   var user=AV.User.current();
-  if (map.email) {
-    user.set('email', map.email);
-  }
   if (map.username) {
     user.set('username', map.username);
-  }
-  if (map.qq) {
-    map.qq = parseInt(map.qq);
-    mlog.log('update qq');
-    user.set('qq', map.qq);
   }
   return user.save();
 }
@@ -45,10 +37,8 @@ function transfromUser(curUser) {
   return {
     username:curUser.get('username'),
     id:curUser.id,
-    qq:curUser.get('qq'),
-    email:curUser.get('email'),
-    token:curUser.get('sessionToken'),
-    emailVerified:curUser.get('emailVerified')
+    MPN:curUser.get('mobilePhoneNumber'),
+    token:curUser.get('sessionToken')
   };
 }
 

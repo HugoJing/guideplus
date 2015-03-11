@@ -24,6 +24,7 @@ var muser = require('cloud/muser.js');
 var mlog = require('cloud/mlog.js');
 var mutil = require('cloud/mutil.js');
 var mwechat = require('cloud/mwechat.js');
+var login = require('cloud/login.js');
 
 
 app.set('views','cloud/views');   // 设置模板目录
@@ -109,6 +110,7 @@ app.get('/login', function(req, res) {
   res.render('login');
 });
 
+
 app.post('/login', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
@@ -122,17 +124,12 @@ app.post('/login', function (req, res) {
     });
 });
 
-app.get('/register_1', function(req, res) {
-  res.render('register_1');
-});
-app.get('/register_3', function(req, res) {
-      var currentUser = AV.User.current();
-      if (currentUser) {
-        // do stuff with the user
-        res.render('register_3' ,{user: currentUser});
-      } else {
-        // show the signup or login page
-      } 
+app.get('/register', function(req, res) {
+    if (login.isLogin(req)) {
+        renderInfo(res, '当前已登录.');
+    } else {
+        res.render('register');
+    }
 });
 
 app.post('/register_1', function (req, res) {
@@ -140,27 +137,57 @@ app.post('/register_1', function (req, res) {
   user.set("username", req.body.phone);
   user.set("password", "123456");
   user.setMobilePhoneNumber(req.body.phone);
-  user.signUp(null).then(function (user) {
-        success: function () {
-            res.redirect('/register_3');
-        },
-        error: function (user, error) {
-            mutil.renderError(res, error.message);
-        }
-  });
+        user.signUp(null).then(function (user) {
+            console.log('User is saved.');
+        }, function (error) {
+            console.log('error');
+        });
 });
   
 app.post('/register_2', function (req, res) {
   AV.User.verifyMobilePhone(req.body.PIN).then(function(){
-      res.redirect('/register_3');
+      login.login(req.body.mobilePhoneNumber, req.body.password);
+      muser.findUserByMPN(req.body.phone).get("id");
+      res.redirect('/clients/:id');
     }, function(err){
       console.log('验证失败');
       renderErrorFn(res);
     });
 });
-app.post('/register_3', function (req, res) {
+
+
+function judgeDetailVisible(isAdmin, detailCid, visistCid) {
+    if (isAdmin) {
+        return AV.Promise.as(isAdmin);
+    }
+    return login.isAdmin(detailCid).then(function (isAdminDetail) {
+        if (isAdminDetail || detailCid == visistCid) {
+            return AV.Promise.as(true);
+        } else {
+            return AV.Promise.as(false);
+        }
+    });
+}
+
+app.get('/clients/:id', function (req, res) {
+    var cid = req.cid;
+    var id = req.params.id;
+    if (judgeDetailVisible(req.admin,id, cid)) {
+        muser.findUserById(id).then(function (client) {
+            if (client) {
+                res.render('client_detail', {client: client});
+            } else {
+                renderInfo(res, '此用户并未建立用户信息');
+            }
+        }, mutil.renderErrorFn(res));
+    } else {
+        renderForbidden(res);
+    }
+});
+
+app.post('/client_detail', function (req, res) {
   var user = AV.User.current();
-  user.setPassword(req.body.password);
+  user.set('Password', req.body.password);
   user.save().then(function () {
     console.log('User is saved.');
     renderInfo(res, '<p>成功！</p>');
@@ -170,7 +197,6 @@ app.post('/register_3', function (req, res) {
   });
 });
 
-
 //Wechat Server
 //wechatMenu
 api.createMenu(mwechat.menu, function (err, result) {});
@@ -179,7 +205,7 @@ api.createMenu(mwechat.menu, function (err, result) {});
 //wechat
 app.use('/wechat', wechat(config).text(function (message, req, res, next) {
     res.reply({
-        content: 'Hi，你的消息我已收到。\n来找我玩吧，点“获取”，我就把一封帖子发给你。\nGuide+ 敬上',
+        content: 'Hi，你的消息我已收到。\n点“获取”，我就把一封帖子发给你。\n如果你想更改自己的兴趣话题标签，请发送“更改”。\nGuide+ 敬上',
         type: 'text'
     });
 }).image(function (message, req, res, next) {

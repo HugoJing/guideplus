@@ -1,0 +1,39 @@
+<div class="callout callout-info">
+
+<form id="clientDetailForm" enctype="multipart/form-data" action="/client_detail" method="post">
+	<div class="form-group">
+	    	<label class="control-label" for="inputMPN">
+		      手机号
+		      <b class="has-required bstooltip" title="暂时不支持更改手机号" data-placement="top">?</b>
+	    	</label>
+	   	<div class="controls">
+	     	<input type="text" name="MPN" id="inputMPN" class="form-control" disabled="disabled" placeholder="<%= client.MPN %>" required>
+	    	</div>
+	</div>
+
+	<div class="form-group">
+	    	<label class="control-label" for="inputUsername">
+		      用户名
+		      <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+	    	</label>
+	   	<div class="controls">
+	     	<input type="text" name="username" id="inputUsername" class="form-control" onfocus="if (value =='<%= client.username %>'){value =''}" onblur="if (value ==''){value='<%= client.username %>'}"  value="<%= client.username %>" required>
+	    	</div>
+	</div>
+
+	<div class="form-group">
+	    	<label class="control-label" for="inputType">
+		      密码
+		      <b class="has-required bstooltip" title="必填" data-placement="top">Required</b>
+	    	</label>
+	    	<div class="controls">
+	    		<input type="password" name="password" id="inputPassword" class="form-control" placeholder="设置你的新密码" required>
+	   	</div>
+	</div>
+
+	  <div class="form-group">
+	    <button type="submit" class="btn btn-primary">确认</button>
+	    <a onclick="back();" class="btn btn-default btn-back">返回</a>
+	  </div>
+
+</form>
