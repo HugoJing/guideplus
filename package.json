@@ -11,7 +11,10 @@
     "wechat": "1.2.1",
     "wechat-api": "1.5.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-minify-css": "^1.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -52,7 +52,7 @@ var User = AV.Object.extend('_User');
 
 // 下载页/首页
 app.get('/', function(req, res) {
-    res.render('index',{"layout":false});
+    res.render('index')
 });
 // 内容页
 app.get('/story/:id', function (req, res) {
