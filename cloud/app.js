@@ -11,12 +11,12 @@ var wechat = require('wechat');
 var API = require('wechat-api');
 
 var config = {
-  token: 'fa21gas2asg2sas2aaa1f0',
-  appid: 'wx1ae58e7dc3df808d',
-  encodingAESKey: 'UA9MA0N5VspKF2S1mBIYQjPxwXkw4VcfjgGBlvBW88P'
+  token: 'your_token',
+  appid: 'your_appid',
+  encodingAESKey: 'your_encodingAESKey'
 };
-appid = 'wx1ae58e7dc3df808d';
-secret = '723634002c069dc416d58a836d68c250';
+appid = 'your_token';
+secret = 'your_secret';
 var api = new API(appid, secret);
 
 var mstory = require('cloud/mstory.js');
